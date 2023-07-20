@@ -1,4 +1,4 @@
-package org.example.api;
+package org.example.api.resource;
 
 import org.example.api.entities.User;
 import org.springframework.http.ResponseEntity;
@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/users")
-public class Resource {
+public class UserResource {
 
       @GetMapping
-      public ResponseEntity<User> findAll(){
+      public ResponseEntity<User> findAll() {
           User user = new User(1l, "Lucas", "lucas@gmail.com", "99999999999", "123456");
           return ResponseEntity.ok().body(user);
       }
-
-
 }
