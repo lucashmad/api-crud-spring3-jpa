@@ -1,5 +1,7 @@
 package org.example.api.entities;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,19 +16,21 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Instant momentDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    private Instant moment;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private User clientUser;
+    private User client;
 
     public Order() {
     }
 
-    public Order(Long id, Instant momentDate, User clientUser) {
+    public Order(Long id, Instant moment, User client) {
         this.id = id;
-        this.momentDate = momentDate;
-        this.clientUser = clientUser;
+        this.moment = moment;
+        this.client = client;
     }
 
     public Long getId() {
@@ -37,20 +41,20 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Instant getMomentDate() {
-        return momentDate;
+    public Instant getMoment() {
+        return moment;
     }
 
-    public void setMomentDate(Instant momentDate) {
-        this.momentDate = momentDate;
+    public void setMoment(Instant moment) {
+        this.moment = moment;
     }
 
-    public User getClientUser() {
-        return clientUser;
+    public User getClient() {
+        return client;
     }
 
-    public void setClientUser(User clientUser) {
-        this.clientUser = clientUser;
+    public void setClient(User client) {
+        this.client = client;
     }
 
     @Override
