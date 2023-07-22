@@ -1,8 +1,10 @@
 package org.example.api.config;
 
+import org.example.api.entities.Category;
 import org.example.api.entities.Order;
 import org.example.api.entities.User;
 import org.example.api.entities.enums.OrderStatus;
+import org.example.api.repositories.CategoryRepository;
 import org.example.api.repositories.OrderRepository;
 import org.example.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,16 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
+
+        Category categoryOne = new Category(null, "Electronics");
+        Category categoryTwo = new Category(null, "Books");
+        Category categoryTree = new Category(null, "Computers");
+
         User userOne = new User(null, "Maria", "maria@gmail.com", "988888888", "456787");
         User userTwo = new User(null, "Guilherme", "gui@gmail.com", "788888888", "145225");
 
@@ -33,5 +43,6 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(userOne,userTwo)); // instanciado no banco
         orderRepository.saveAll(Arrays.asList(orderOne,orderTwo,orderTree));
+        categoryRepository.saveAll(Arrays.asList(categoryOne,categoryTwo,categoryTree));
     }
 }
