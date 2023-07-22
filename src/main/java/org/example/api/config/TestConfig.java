@@ -1,14 +1,8 @@
 package org.example.api.config;
 
-import org.example.api.entities.Products;
-import org.example.api.entities.Category;
-import org.example.api.entities.Order;
-import org.example.api.entities.User;
+import org.example.api.entities.*;
 import org.example.api.entities.enums.OrderStatus;
-import org.example.api.repositories.CategoryRepository;
-import org.example.api.repositories.OrderRepository;
-import org.example.api.repositories.ProductRepository;
-import org.example.api.repositories.UserRepository;
+import org.example.api.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +25,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -65,5 +62,12 @@ public class TestConfig implements CommandLineRunner {
         productsFive.getCategories().add(categoryTwo);
 
         productRepository.saveAll(Arrays.asList(productsOne,productsTwo,productsTree,productsFour,productsFive));
+
+        OrderItem orderItemOne = new OrderItem(orderOne, productsOne, 2,productsOne.getPrice());
+        OrderItem orderItemTwo = new OrderItem(orderOne, productsTree, 1, productsTree.getPrice());
+        OrderItem orderItemTree = new OrderItem(orderTwo, productsTree, 2, productsTree.getPrice());
+        OrderItem orderItemFour = new OrderItem(orderTree, productsFive, 2, productsFive.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(orderItemOne, orderItemTwo, orderItemTree, orderItemFour));
     }
 }
