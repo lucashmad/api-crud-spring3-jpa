@@ -1,5 +1,6 @@
 package org.example.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -25,6 +26,8 @@ public class Products implements Serializable {
     @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>(); // produto nao pode ter a mesma categoria
 
+    @OneToMany(mappedBy = "id.products")
+    private Set<OrderItem> orderItems = new HashSet<>();
     public Products() {
     }
 
@@ -35,6 +38,8 @@ public class Products implements Serializable {
         this.price = price;
         this.imgUrl = imgUrl;
     }
+
+
 
     public Long getId() {
         return id;
@@ -79,6 +84,16 @@ public class Products implements Serializable {
     public Set<Category> getCategories() {
         return categories;
     }
+
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> orderSet = new HashSet<>();
+        for (OrderItem item : orderItems){
+            orderSet.add(item.getOrder());
+        }
+        return orderSet;
+    }
+
 
     @Override
     public boolean equals(Object o) {

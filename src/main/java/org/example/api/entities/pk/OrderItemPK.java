@@ -1,5 +1,6 @@
 package org.example.api.entities.pk;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -29,6 +30,7 @@ public class OrderItemPK implements Serializable {
     public void setOrder(Order order) {
         this.order = order;
     }
+
 
     public Products getProducts() {
         return products;
