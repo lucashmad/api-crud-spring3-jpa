@@ -47,6 +47,4 @@ public class UserResource {
           object = userService.update(id,object);
           return ResponseEntity.ok().body(object);
       }
-
-
 }

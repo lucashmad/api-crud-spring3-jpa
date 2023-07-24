@@ -2,6 +2,7 @@ package org.example.api.services;
 
 import org.example.api.entities.User;
 import org.example.api.repositories.UserRepository;
+import org.example.api.services.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> object = userRepository.findById(id);
-        return object.get();
+        return object.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User object){ // retorna todos os users salvos
